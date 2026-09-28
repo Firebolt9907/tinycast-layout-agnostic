@@ -149,13 +149,17 @@ enum Paster {
     /// Synthesize ⌘V, to `pid` alone when given, else through the system tap.
     @MainActor
     static func postCommandV(toPid pid: pid_t? = nil) {
-        postCommand(key: CGKeyCode(kVK_ANSI_V), toPid: pid)
+        postCommand(
+            key: ASCIIKeyboardLayout.commandKeyCode(for: "v") ?? CGKeyCode(kVK_ANSI_V),
+            toPid: pid)
     }
 
     /// Synthesize ⌘C, for reading a selection an app will not surface over Accessibility.
     @MainActor
     static func postCommandC(toPid pid: pid_t? = nil) {
-        postCommand(key: CGKeyCode(kVK_ANSI_C), toPid: pid)
+        postCommand(
+            key: ASCIIKeyboardLayout.commandKeyCode(for: "c") ?? CGKeyCode(kVK_ANSI_C),
+            toPid: pid)
     }
 
     @MainActor

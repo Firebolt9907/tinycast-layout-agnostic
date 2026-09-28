@@ -17,6 +17,16 @@ enum ASCIIKeyboardLayout {
         } ?? [:]
     }
 
+    /// Find the physical key that spells a shortcut under the layout's Command table.
+    @MainActor static func commandKeyCode(for character: String) -> CGKeyCode? {
+        withCurrentLayout { layout in
+            (0..<128).first {
+                self.character(for: $0, modifiers: UInt32(cmdKey >> 8), in: layout)?
+                    .lowercased() == character.lowercased()
+            }.map(CGKeyCode.init)
+        }
+    }
+
     @MainActor private static func withCurrentLayout<Result>(
         _ body: (UnsafePointer<UCKeyboardLayout>) -> Result?
     ) -> Result? {
