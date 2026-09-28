@@ -388,6 +388,8 @@ caches, TCC grants and login item, so this cannot disturb an installed copy.
 - ⌃X deletes the selected entry and ⌃⇧X clears the history, from the list and from an open ⌘K menu
 - ⌃⇧X asks first, through Tinycast's own dialog; Cancel and Esc both leave every entry in place
 - ↵ pastes into the previous app; ⌥↵ pastes without closing the palette
+- With Dvorak and Dvorak – QWERTY ⌘ selected in turn, ↵ and ⌥↵ paste into the target app;
+  text injection and extension paste also insert, and copying a selection still reads it
 - ⌃⌘↵ pastes as plain text: a text entry as typed, a file entry as its path rather than the file
 - Default action ▸ Paste as Plain Text: ↵ pastes plain, ⌃⌘↵ pastes, ⌘↵ still copies; an image
   entry's ↵ still pastes the image and its ⌘K menu has no plain row

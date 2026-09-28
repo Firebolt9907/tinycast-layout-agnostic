@@ -1,4 +1,5 @@
 import AppKit
+import Carbon.HIToolbox
 import SwiftUI
 
 /// `UCKeyTranslate` answers a named key's keycode with a control character the ASCII test admits.
@@ -73,6 +74,20 @@ struct ASCIILayoutTests {
             "a shifted letter is still spelled lower case",
             ASCIIKeyboardLayout.recovered(KeyEquivalent("C"), layoutCharacter: nil)
                 == KeyEquivalent("c"))
+
+        print("\n# synthetic shortcuts use the active layout's Command table")
+        for character in ["v", "c"] {
+            let keyCode = ASCIIKeyboardLayout.commandKeyCode(for: character)
+            check("Command-\(character) has a key", keyCode != nil)
+            if let keyCode {
+                check(
+                    "Command-\(character) round-trips through the layout",
+                    ASCIIKeyboardLayout.character(
+                        for: Int(keyCode), modifiers: UInt32(cmdKey >> 8))?
+                        .lowercased() == character)
+            }
+        }
+        check("an absent shortcut has no key", ASCIIKeyboardLayout.commandKeyCode(for: "🦊") == nil)
 
         print("\n\(passes) passed, \(failures) failed")
         exit(failures == 0 ? 0 : 1)
